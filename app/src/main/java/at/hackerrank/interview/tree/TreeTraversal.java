@@ -1,55 +1,58 @@
 package at.hackerrank.interview.tree;
 
-import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class PreorderTraversal {
+public class TreeTraversal {
     /**
      * PreOrder - Root -> Left -> Right
+     *
      * @param root
      */
     public static void preOrder(Node root) {
-        if(root == null){
+        if (root == null) {
             return;
         }
-        System.out.print(root.data+ " ");
+        System.out.print(root.data + " ");
         preOrder(root.left);
         preOrder(root.right);
     }
+
     /**
      * PreOrder - Left -> Right ->
+     *
      * @param root
      */
     public static void postOrder(Node root) {
-        if(root == null){
+        if (root == null) {
             return;
         }
         postOrder(root.left);
         postOrder(root.right);
-        System.out.print(root.data+ " ");
+        System.out.print(root.data + " ");
     }
 
     /**
      * InOrder - Left-> Root -> Right
+     *
      * @param root
      */
     public static void inOrder(Node root) {
-        if(root == null){
+        if (root == null) {
             return;
         }
         inOrder(root.left);
-        System.out.print(root.data+ " ");
+        System.out.print(root.data + " ");
         inOrder(root.right);
     }
 
-    public static void levelOrder(Node root){
-        if(root == null) {
+    public static void levelOrder(Node root) {
+        if (root == null) {
             return;
         }
         LinkedList<Node> queue = new LinkedList<>();
         queue.add(root);
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Node current = queue.peek();
             System.out.print(current.data + " ");
             if (current.left != null)
@@ -74,6 +77,18 @@ public class PreorderTraversal {
             }
             return root;
         }
+    }
+
+    public boolean isBinarySearchTree(Node root, int min, int max) {
+        if (root == null) {
+            return true;
+        }
+        return root.data > min && root.data < max
+                && isBinarySearchTree(root.left, min, root.data)
+                && isBinarySearchTree(root.right, root.data, max);
+    }
+    boolean checkBST(Node root) {
+        return isBinarySearchTree(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     public static void main(String[] args) {
